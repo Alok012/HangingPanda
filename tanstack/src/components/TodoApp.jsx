@@ -49,8 +49,8 @@ const TodoData = () => {
         completed: !completed,
       }),
     onSuccess: (_, { id }) => {
-      queryClient.setQueryData(["todos"], (old = []) =>
-        old.map((todo) =>
+      queryClient.setQueryData(["todos"], (oldTodos = []) =>
+        oldTodos.map((todo) =>
           todo.id === id ? { ...todo, completed: !todo.completed } : todo
         )
       );
@@ -97,18 +97,18 @@ const TodoData = () => {
 
   return (
     <div>
-      <div className="border mt-15 w-[50%] m-auto rounded">
+      <div className="border mt-15 w-[50%] m-auto rounded bg-gray-100">
         <div className="flex mt-5">
-          <h3 className="ml-4 mt-5 font-bold text-3xl">Todo List</h3>
+          <h3 className="ml-4 mt-5 font-bold text-4xl">Todo List</h3>
           <input
-            className="ml-23 mt-4 rounded pl-3 border h-8 "
+            className="ml-50 mt-5 mb-4 rounded pl-3 h-8 w-[260px] border "
             type="text"
             value={newTodo}
             placeholder="Add your todo..."
             onChange={(e) => setNewTodo(e.target.value)}
           ></input>
           <button
-            className="ml-4 border rounded-3xl w-18 h-8 mt-4 mr-4 mb-7"
+            className="ml-4 border rounded-3xl w-20 h-8 mt-5 mr-4 mb-7 text-white bg-green-600"
             onClick={handleAdd}
           >
             Add Task
@@ -117,7 +117,7 @@ const TodoData = () => {
         {todoQuery.data.map((todo) => (
           <div
             key={todo.id}
-            className="flex items-center border ml-2 mt-2 mb-1 rounded mr-2"
+            className="flex items-center border-1 border-gray-200 ml-2 mt-2 mb-1 rounded mr-2"
           >
             <input
               type="checkbox"
@@ -136,9 +136,9 @@ const TodoData = () => {
                   onChange={(e) => setDraftText(e.target.value)}
                   autoFocus
                 />
-                <div className="flex  max-w-[130px] ml-45 mr-auto ">
+                <div className="flex  max-w-[130px] ml-82 ">
                   <button
-                    className="border rounded px-2 ml-2 mt-1 mb-1 "
+                    className="border rounded px-2 ml-2 mt-1 mb-1 cursor-pointer hover:bg-green-600 hover:text-white "
                     onClick={() => {
                       editTodo.mutate({ id: todo.id, newText: draftText });
                       setEditingId(null);
@@ -147,7 +147,7 @@ const TodoData = () => {
                     Save
                   </button>
                   <button
-                    className="border rounded px-2 ml-1 mt-1 mb-1 mr-6 w-15"
+                    className="border rounded px-2 ml-1 mt-1 mb-1 mr-6 w-15 cursor-pointer hover:bg-gray-400"
                     onClick={() => setEditingId(null)}
                   >
                     Cancel
@@ -166,7 +166,7 @@ const TodoData = () => {
                 </span>
                 <div className="flex  max-w-[130px] ml-auto mr-auto ">
                   <button
-                    className="border rounded px-2 ml-2 mt-1 mb-1 "
+                    className="border rounded px-2 ml-2 mt-1 mb-1 cursor-pointer hover:bg-amber-500"
                     onClick={() => {
                       setEditingId(todo.id);
                       setDraftText(todo.todo);
@@ -175,7 +175,7 @@ const TodoData = () => {
                     Edit
                   </button>
                   <button
-                    className="border rounded px-2 ml-1 mt-1 mb-1 mr-6 w-15"
+                    className="border rounded px-2 ml-1 mt-1 mb-1 mr-6 w-15 cursor-pointer hover:bg-red-600"
                     onClick={() => deleteTodo.mutate(todo.id)}
                   >
                     Delete
